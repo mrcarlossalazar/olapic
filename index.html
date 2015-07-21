@@ -1,0 +1,106 @@
+<html lang="en">
+
+	<head>
+ 
+		<title>Olapic Demo Carousel</title>
+    	  
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+   
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	
+  	<style type="text/css">.selected img {opacity:0.7;}
+        .container-fluid {  width:1000px;  .center-block();
+        
+}</style>
+    		
+	</head>
+ 
+	<body>	
+	<script>
+$(document).ready(function(){
+		
+			//Variable Declaration
+			var normalURLs = new Array();
+			var tb1, tb2, tb3, img1, img2, img3;
+			var finalimgHTML = "", finaltbHTML = "";
+			
+			//REST URL
+			var jsonURL = "https://photorankapi-a.akamaihd.net/customers/215757/media/photorank?auth_token=0a40a13fd9d531110b4d6515ef0d6c529acdb59e81194132356a1b8903790c18";
+			
+			//Get JSON from site and grab URLs of normal size images
+			$.getJSON(jsonURL, function(result){
+				$.each(result["data"]["_embedded"], function(key, val){
+					normalURLs.push(val.images.normal);
+				});
+			
+			//Wait until AJAX request completes, then build HTML from URLs
+			}).then(function(){
+				$.each(normalURLs, function(key, val){
+					tb1 = '<li><a id="carousel-selector-';
+					tb2 = '" class="selected"><img src="';
+					tb3 = '" width="45" height="45" class="img-circle"></a></li>';						
+					finaltbHTML = finaltbHTML + tb1 + key + tb2 + val + tb3;
+					
+					if (key == 0){img1 = '<div class="active item" data-slide-number="';}
+					else {img1 = '<div class="item" data-slide-number="';}
+					img2 = '"><img src="';
+					img3 = '" class="img-thumbnail"></div>';
+					finalimgHTML = finalimgHTML + img1 + key + img2 + val + img3;					
+				});
+				
+				//Apply new HTML
+				$(".list-inline").html(finaltbHTML);
+				$(".carousel-inner").html(finalimgHTML);			
+				
+				//Controls for the carousel
+				$('#myCarousel').carousel({interval: 2000});
+				
+				//Carousel thumbnails
+				$('[id^=carousel-selector-]').click(function(){
+					var id_selector = $(this).attr("id");
+					var id = id_selector.substr(id_selector.length -1);
+					id = parseInt(id);
+					$('#myCarousel').carousel(id);
+					$('[id^=carousel-selector-]').removeClass('selected');
+					$(this).addClass('selected');
+				});
+				
+				//Auto update main images
+				$('#myCarousel').on('slid', function (e) {
+					var id = $('.item.active').data('slide-number');
+					id = parseInt(id);
+					$('[id^=carousel-selector-]').removeClass('selected');
+					$('[id=carousel-selector-'+id+']').addClass('selected');
+				});
+			});
+});
+</script>
+	
+  <div class="container-fluid">
+	<h1>Olapic Demo Carousel</h1>  
+  	<!-- thumb navigation carousel -->
+    <div class="col-sm-6 hidden-sm hidden-sm" id="slider-thumbs">        
+    <!-- thumb navigation carousel items -->
+    <ul class="list-inline"></ul>        
+    </div>
+    
+    <!-- main slider carousel -->
+    <div class="row">
+        <div class="col-md-9" id="slider">            
+                <div class="col-md-9" id="carousel-bounding-box">
+                    <div id="myCarousel" class="carousel slide">
+                        <!--This is where items are inester main slider carousel items -->
+                        <div class="carousel-inner"></div>
+                        <!-- main slider carousel nav controls --> 
+						<a class="carousel-control left" href="#myCarousel" data-slide="prev">‹</a>
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">›</a>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
