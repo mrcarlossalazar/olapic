@@ -1,5 +1,5 @@
 # olapic
-olapic demo
+
 The following is a  carousel populated with the latest photos from an Olapic account.
 
 The first task was to Load jQuery and Bootstrap JavaScript [bootstrap.min.js]in order to use the native carousel features.
