@@ -48,7 +48,8 @@ $(document).ready(function(){
 					else {img1 = '<div class="item" data-slide-number="';}
 					img2 = '"><img src="';
 					img3 = '" class="img-thumbnail"></div>';
-					finalimgHTML = finalimgHTML + img1 + key + img2 + val + img3;					
+					finalimgHTML = finalimgHTML + img1 + key + img2 + val + img3;
+					  return key<7;
 				});
 				
 				//Apply new HTML
