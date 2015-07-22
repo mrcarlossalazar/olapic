@@ -15,6 +15,6 @@ Aaddtionally, an extra step in order to initialize an active element is required
 
 Scripts are request to control the intervals for the photo rotation which is set at 2000. There are 2 functions that control the thumbnail display and another which updates the main image. 
 
-Finally, using the Bootstrap grid system, the thumbnails are set at a 45x45 px (" width="45" height="45" class="img-circle")enclosed in a circle to smooth the irregularities in the photos and the carousel is set for Medium devices i.e. Desktops less than 992px ("col-md-9").
+Finally, using the Bootstrap grid system, the thumbnails are set at a 55x55 px (" width="55" height="55" class="img-circle")enclosed in a circle to smooth the irregularities in the photos and the carousel is set for Medium devices i.e. Desktops less than 992px ("col-md-9").
 
 HTML, CSS, and JS are incorporated on this page. 
